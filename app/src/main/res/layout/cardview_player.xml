@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:id="@+id/cardview_player">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:id="@+id/cardview_playerPhoto"
+            android:src="@drawable/jonasjerebko" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:padding="5dp"
+            android:orientation="vertical"
+            android:layout_gravity="left|center_vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="jonas jerebko"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:textStyle="bold"
+                android:textColor="@color/dark"
+                android:id="@+id/cardview_playername"
+                android:layout_margin="3dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Heat C"
+                android:id="@+id/cardview_playerposition"
+                android:layout_margin="3dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="30.0FPG | 6.5APG | 5.4 RPG"
+                android:id="@+id/cardview_playerData"
+                android:layout_margin="3dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cardview_playerLike"
+                android:layout_alignParentEnd="false"
+                android:layout_marginRight="10dp"
+                android:button="@drawable/checkbox"
+                android:checked="false" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</android.support.v7.widget.CardView>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:showDividers="middle"
+    android:padding="10dp"
+    android:divider="@drawable/divider">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginRight="5dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/schedule_logo1"
+                android:src="@drawable/teamlogo_dallas"/>
+
+            <TextView
+                android:id="@+id/schedule_teamname1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textAlignment="gravity"
+                android:gravity="center"
+                android:textColor="@color/dark"
+                android:textSize="@dimen/activity_horizontal_margin"
+                android:text="Dallas"/>
+
+            <TextView
+                android:id="@+id/schedule_teamscore1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textAlignment="textEnd"
+                android:textColor="@color/dark"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/activity_horizontal_margin"
+                android:text="99"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/schedule_logo2"
+                android:src="@drawable/teamlogo_dallas"/>
+
+            <TextView
+                android:id="@+id/schedule_teamname2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textAlignment="gravity"
+                android:gravity="center"
+                android:textColor="@color/dark"
+                android:textSize="@dimen/activity_horizontal_margin"
+                android:text="Dallas"/>
+
+            <TextView
+                android:id="@+id/schedule_teamscore2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:textAlignment="textEnd"
+                android:gravity="center_vertical"
+                android:textColor="@color/dark"
+                android:textSize="@dimen/activity_horizontal_margin"
+                android:text="104"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center"
+        android:layout_weight="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_gravity="bottom"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/schedule_status"
+                android:gravity="center_vertical"
+                android:text="FINISHED"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:textColor="@color/red"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:textIsSelectable="false"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/schedule_data"
+                android:gravity="center_vertical"
+                android:text="2/1/2016"
+                android:textStyle="bold"
+                android:textColor="@color/dark"
+                android:textAlignment="center"
+                android:textSize="@dimen/activity_vertical_margin"
+                android:capitalize="words" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>
