@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.layout_main, TeamPlayerListFragment.newInstance())
+                .replace(R.id.layout_main, TeamListFragment.newInstance())
                 .commit();
     }
 }
