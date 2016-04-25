@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.jpardogo.listbuddies.lib.views.ListBuddiesLayout
+        xmlns:listbuddies="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/team_list_listbuddieslayout"
+        listbuddies:speed = "2"
+        listbuddies:autoScrollFaster = "left"
+        listbuddies:scrollFaster = "left"></com.jpardogo.listbuddies.lib.views.ListBuddiesLayout>
+</LinearLayout>
