@@ -31,6 +31,7 @@ public class FirebaseLib {
     }
 
     public List<Team> getTeamList() {
+        Log.d("getteamlist", "getteamlist");
         Firebase ref = new Firebase(TEAM_DATABASE_URL);
 
         final List<Team> result = new ArrayList<>();
@@ -38,10 +39,10 @@ public class FirebaseLib {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("ondatachange", "");
                 for (DataSnapshot teamSnapshot : dataSnapshot.getChildren()) {
                     Team team = teamSnapshot.getValue(Team.class);
                     result.add(team);
+                    Log.d("team", team.getKey());
                 }
                 teamListener.onTabLayoutBinding(result);
             }
