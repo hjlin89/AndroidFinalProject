@@ -21,7 +21,7 @@ public class FirebaseLib {
     public static final String TEAM_DATABASE_URL = "https://luminous-heat-2520.firebaseio.com/Teams";
     public static final String PLAYER_BY_TEAM = "https://luminous-heat-2520.firebaseio.com/Players";
     TeamListener teamListener;
-    // test
+    // t
 
     public interface TeamListener{
         void onTabLayoutBinding(List<Team> teams);
