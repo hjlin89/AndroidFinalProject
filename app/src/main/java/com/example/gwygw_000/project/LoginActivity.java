@@ -57,7 +57,7 @@ public class LoginActivity extends FirebaseLoginBaseActivity implements CreateUs
             });
         }
 
-        Button createButton = (Button) findViewById(R.id.button);
+        Button createButton = (Button) findViewById(R.id.createuser);
         if (createButton != null) {
             createButton.setOnClickListener(new View.OnClickListener() {
                 @Override
