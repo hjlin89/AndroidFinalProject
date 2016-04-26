@@ -11,7 +11,17 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="Email Address" />
+        android:hint="UserName" />
+    <EditText
+        android:id="@+id/createuseremail"
+        android:inputType="textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:hint="Email" />
     <EditText
         android:id="@+id/createpassword"
         android:inputType="textPassword"

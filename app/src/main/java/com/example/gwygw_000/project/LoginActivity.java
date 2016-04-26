@@ -104,6 +104,7 @@ public class LoginActivity extends FirebaseLoginBaseActivity
         }
         Toast.makeText(getApplicationContext(), LOGIN_SUCCESS, Toast.LENGTH_SHORT).show();
         Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+        myIntent.putExtra("Email", mName);
         LoginActivity.this.startActivity(myIntent);
     }
 
@@ -150,19 +151,18 @@ public class LoginActivity extends FirebaseLoginBaseActivity
         createUserDialog.show(getFragmentManager(), "CreateUser");
     }
 
-    public void createUser(final String username, String password) {
-        if(username == null ||  !isEmailValid(username)) {
+    public void createUser(final String username, final String email, String password) {
+        if(username == null || email == null || !isEmailValid(email)) {
             return;
         }
-        firebaseRef.createUser(username, password,
+        firebaseRef.createUser(email, password,
                 new Firebase.ValueResultHandler<Map<String, Object>>() {
                     @Override
                     public void onSuccess(Map<String, Object> result) {
                         Toast toast = Toast
                                 .makeText(getBaseContext(), USER_CREATION_SUCCESS, Toast.LENGTH_SHORT);
                         toast.show();
-                        // TODO : invoke a fragment of user information
-                        FragmentCreateUserInfo createUserDialog = FragmentCreateUserInfo.newInstance(username);
+                        FragmentCreateUserInfo createUserDialog = FragmentCreateUserInfo.newInstance(username, email);
                         createUserDialog.show(getFragmentManager(), "CreateUserInfo");
                     }
                     @Override
@@ -175,12 +175,14 @@ public class LoginActivity extends FirebaseLoginBaseActivity
     }
 
     @Override
-    public void onFragmentInteraction(String username, String password) {
-        createUser(username, password);
+    public void onFragmentInteraction(String username, String email, String password) {
+        createUser(username, email, password);
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void startMainActivity(String email) {
+        Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+        myIntent.putExtra("Email", email);
+        LoginActivity.this.startActivity(myIntent);
     }
 }

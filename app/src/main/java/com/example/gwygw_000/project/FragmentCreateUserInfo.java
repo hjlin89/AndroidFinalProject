@@ -49,10 +49,10 @@ public class FragmentCreateUserInfo extends DialogFragment {
 
 
     // TODO: Rename and change types of parameters
+    private String userName;
     private String userEmail;
-    private String mParam2;
 
-    EditText etUsername;
+    EditText etUseremail;
     EditText etWhazup;
     Button btTakePhoto;
     Button btChooseLib;
@@ -75,11 +75,11 @@ public class FragmentCreateUserInfo extends DialogFragment {
      * @return A new instance of fragment FragmentCreateUserInfo.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentCreateUserInfo newInstance(String userEmail) {
+    public static FragmentCreateUserInfo newInstance(String username, String useremail) {
         FragmentCreateUserInfo fragment = new FragmentCreateUserInfo();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, userEmail);
-        //args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM1, username);
+        args.putString(ARG_PARAM2, useremail);
         fragment.setArguments(args);
         return fragment;
     }
@@ -88,8 +88,8 @@ public class FragmentCreateUserInfo extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            userEmail = getArguments().getString(ARG_PARAM1);
-            //mParam2 = getArguments().getString(ARG_PARAM2);
+            userName = getArguments().getString(ARG_PARAM1);
+            userEmail = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -98,7 +98,8 @@ public class FragmentCreateUserInfo extends DialogFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_create_user_info, container, false);
-        etUsername = (EditText) view.findViewById(R.id.et_nickname);
+        etUseremail = (EditText) view.findViewById(R.id.user_email);
+        etUseremail.setText(userEmail);
         etWhazup = (EditText) view.findViewById(R.id.et_whatzup);
         btTakePhoto = (Button) view.findViewById(R.id.bt_takephoto);
         btChooseLib = (Button) view.findViewById(R.id.bt_choosephotolib);
@@ -136,8 +137,8 @@ public class FragmentCreateUserInfo extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Firebase ref = new Firebase("https://luminous-heat-2520.firebaseio.com/");
-                ref = ref.child("UserData").child(etUsername.getText().toString());
-                ref.child("Email").setValue(userEmail);
+                ref = ref.child("UserData").child(userName);
+                ref.child("Email").setValue(etUseremail.getText().toString());
                 ref.child("description").setValue(etWhazup.getText().toString());
                 if (image != null) {
                     ByteArrayOutputStream bYtE = new ByteArrayOutputStream();
@@ -147,14 +148,13 @@ public class FragmentCreateUserInfo extends DialogFragment {
                     String imageFile = Base64.encodeToString(byteArray, Base64.DEFAULT);
                     ref.child("headimage").setValue(imageFile);
 
-                    byte[] decodedString = Base64.decode(imageFile, Base64.DEFAULT);
-                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                    cImage.setImageBitmap(decodedByte);
-
-
-                } else {
-                    ref.child("headimage").setValue("null");
+//                    // reverse string bitmap to image
+//                    byte[] decodedString = Base64.decode(imageFile, Base64.DEFAULT);
+//                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+//                    cImage.setImageBitmap(decodedByte);
                 }
+                OnFragmentInteractionListener listener = (OnFragmentInteractionListener) getActivity();
+                listener.startMainActivity(userEmail);
             }
         });
 
@@ -234,9 +234,9 @@ public class FragmentCreateUserInfo extends DialogFragment {
     }
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(String uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.startMainActivity(uri);
         }
     }
 
@@ -269,6 +269,6 @@ public class FragmentCreateUserInfo extends DialogFragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void startMainActivity(String userEmail);
     }
 }

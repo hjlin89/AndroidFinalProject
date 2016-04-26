@@ -75,6 +75,7 @@ public class CreateUserDialog extends DialogFragment {
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         final EditText vUser = (EditText) view.findViewById(R.id.createusername);
+        final EditText vEmail = (EditText) view.findViewById(R.id.createuseremail);
         final EditText vPass = (EditText) view.findViewById(R.id.createpassword);
 
         builder.setView(view)
@@ -85,7 +86,7 @@ public class CreateUserDialog extends DialogFragment {
                             public void onClick(DialogInterface dialog, int id) {
                                 // add create user event
                                 OnFragmentInteractionListener listener = (OnFragmentInteractionListener) getActivity();
-                                listener.onFragmentInteraction(vUser.getText().toString(), vPass.getText().toString());
+                                listener.onFragmentInteraction(vUser.getText().toString(), vEmail.getText().toString(), vPass.getText().toString());
 
                             }
                         }).setNegativeButton("Cancel", null);
@@ -125,6 +126,6 @@ public class CreateUserDialog extends DialogFragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(String username, String password);
+        void onFragmentInteraction(String username, String email, String password);
     }
 }
