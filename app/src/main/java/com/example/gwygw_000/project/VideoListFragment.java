@@ -46,5 +46,5 @@ public class VideoListFragment extends Fragment {
         return view;
     }
 
-    private class MyDownloadVideolistTask extends AsyncTask<String, Void, List<String>>
+    //private class MyDownloadVideolistTask extends AsyncTask<String, Void, List<String>>
 }
