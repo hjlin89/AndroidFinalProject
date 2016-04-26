@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
@@ -25,13 +26,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
-public class LoginActivity extends FirebaseLoginBaseActivity implements CreateUserDialog.OnFragmentInteractionListener{
+public class LoginActivity extends FirebaseLoginBaseActivity
+        implements CreateUserDialog.OnFragmentInteractionListener, FragmentCreateUserInfo.OnFragmentInteractionListener{
 
     Firebase firebaseRef;
     String mName;
 
     /* String Constants */
-    private static final String FIREBASEREF = "https://glaring-heat-4667.firebaseio.com/";
+    private static final String FIREBASEREF = "https://luminous-heat-2520.firebaseio.com/";
     private static final String FIREBASE_ERROR = "Firebase Error";
     private static final String USER_ERROR = "User Error";
     private static final String LOGIN_SUCCESS = "Login Success";
@@ -148,7 +150,7 @@ public class LoginActivity extends FirebaseLoginBaseActivity implements CreateUs
         createUserDialog.show(getFragmentManager(), "CreateUser");
     }
 
-    public void createUser(String username, String password) {
+    public void createUser(final String username, String password) {
         if(username == null ||  !isEmailValid(username)) {
             return;
         }
@@ -159,6 +161,9 @@ public class LoginActivity extends FirebaseLoginBaseActivity implements CreateUs
                         Toast toast = Toast
                                 .makeText(getBaseContext(), USER_CREATION_SUCCESS, Toast.LENGTH_SHORT);
                         toast.show();
+                        // TODO : invoke a fragment of user information
+                        FragmentCreateUserInfo createUserDialog = FragmentCreateUserInfo.newInstance(username);
+                        createUserDialog.show(getFragmentManager(), "CreateUserInfo");
                     }
                     @Override
                     public void onError(FirebaseError firebaseError) {
@@ -172,5 +177,10 @@ public class LoginActivity extends FirebaseLoginBaseActivity implements CreateUs
     @Override
     public void onFragmentInteraction(String username, String password) {
         createUser(username, password);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
