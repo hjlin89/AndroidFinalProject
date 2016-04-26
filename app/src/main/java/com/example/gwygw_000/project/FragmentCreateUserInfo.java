@@ -1,11 +1,14 @@
 package com.example.gwygw_000.project;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -56,7 +59,6 @@ public class FragmentCreateUserInfo extends DialogFragment {
     EditText etWhazup;
     Button btTakePhoto;
     Button btChooseLib;
-    Button btSubmit;
     CircleImageView cImage;
     Bitmap image;
 
@@ -94,16 +96,17 @@ public class FragmentCreateUserInfo extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_create_user_info, container, false);
+    public Dialog onCreateDialog(Bundle savedInstanceState)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        // Get the layout inflater
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view = inflater.inflate(R.layout.fragment_create_user_info, null);
         etUseremail = (EditText) view.findViewById(R.id.user_email);
         etUseremail.setText(userEmail);
         etWhazup = (EditText) view.findViewById(R.id.et_whatzup);
         btTakePhoto = (Button) view.findViewById(R.id.bt_takephoto);
         btChooseLib = (Button) view.findViewById(R.id.bt_choosephotolib);
-        btSubmit = (Button) view.findViewById(R.id.bt_submitInfo);
         cImage = (CircleImageView) view.findViewById(R.id.cv_headimage);
 
         btTakePhoto.setOnClickListener(new View.OnClickListener() {
@@ -133,33 +136,33 @@ public class FragmentCreateUserInfo extends DialogFragment {
             }
         });
 
-        btSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Firebase ref = new Firebase("https://luminous-heat-2520.firebaseio.com/");
-                ref = ref.child("UserData").child(userName);
-                ref.child("Email").setValue(etUseremail.getText().toString());
-                ref.child("description").setValue(etWhazup.getText().toString());
-                if (image != null) {
-                    ByteArrayOutputStream bYtE = new ByteArrayOutputStream();
-                    image.compress(Bitmap.CompressFormat.PNG, 100, bYtE);
-                    image.recycle();
-                    byte[] byteArray = bYtE.toByteArray();
-                    String imageFile = Base64.encodeToString(byteArray, Base64.DEFAULT);
-                    ref.child("headimage").setValue(imageFile);
+        builder.setView(view)
+                // Add action buttons
+                .setPositiveButton("Create",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                Firebase ref = new Firebase("https://luminous-heat-2520.firebaseio.com/");
+                                ref = ref.child("UserData").child(userName);
+                                ref.child("Email").setValue(etUseremail.getText().toString());
+                                ref.child("description").setValue(etWhazup.getText().toString());
+                                if (image != null) {
+                                    ByteArrayOutputStream bYtE = new ByteArrayOutputStream();
+                                    image.compress(Bitmap.CompressFormat.PNG, 100, bYtE);
+                                    image.recycle();
+                                    byte[] byteArray = bYtE.toByteArray();
+                                    String imageFile = Base64.encodeToString(byteArray, Base64.DEFAULT);
+                                    ref.child("headimage").setValue(imageFile);
+                                }
+                                OnFragmentInteractionListener listener = (OnFragmentInteractionListener) getActivity();
+                                listener.startMainActivity(userEmail);
 
-//                    // reverse string bitmap to image
-//                    byte[] decodedString = Base64.decode(imageFile, Base64.DEFAULT);
-//                    Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//                    cImage.setImageBitmap(decodedByte);
-                }
-                OnFragmentInteractionListener listener = (OnFragmentInteractionListener) getActivity();
-                listener.startMainActivity(userEmail);
-            }
-        });
+                            }
+                        }).setNegativeButton("Cancel", null);
 
-        return view;
+        return builder.create();
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {

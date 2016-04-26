@@ -1,8 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.gwygw_000.project.FragmentCreateUserInfo"
+
     >
 
 
@@ -10,12 +12,14 @@
         android:id="@+id/linear_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:orientation="vertical"
         android:layout_centerHorizontal="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_gravity="center"
             android:text="Email" />
 
@@ -30,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
+            android:layout_marginTop="16dp"
             android:text="What's up" />
 
         <EditText
@@ -38,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:text="Description"/>
+            android:text="I'm too lazy to write somthing"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/cv_headimage"
@@ -62,14 +66,6 @@
             android:layout_gravity="center"
             android:text="Choose From Library"/>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/bt_submitInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/linear_layout"
-        android:text="Submit"/>
 
 </RelativeLayout>
 
