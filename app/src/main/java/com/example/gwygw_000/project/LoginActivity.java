@@ -7,6 +7,7 @@ import android.content.pm.Signature;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +21,11 @@ import com.firebase.client.FirebaseError;
 import com.firebase.ui.auth.core.AuthProviderType;
 import com.firebase.ui.auth.core.FirebaseLoginBaseActivity;
 import com.firebase.ui.auth.core.FirebaseLoginError;
+import com.nightonke.boommenu.BoomMenuButton;
+import com.nightonke.boommenu.Types.BoomType;
+import com.nightonke.boommenu.Types.ButtonType;
+import com.nightonke.boommenu.Types.PlaceType;
+import com.nightonke.boommenu.Util;
 
 
 import java.security.MessageDigest;
@@ -48,6 +54,7 @@ public class LoginActivity extends FirebaseLoginBaseActivity
         firebaseRef = new Firebase(FIREBASEREF);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         Button login = (Button) findViewById(R.id.login);
         if (login != null) {
@@ -82,7 +89,7 @@ public class LoginActivity extends FirebaseLoginBaseActivity
     @Override
     protected void onFirebaseLoginUserError(FirebaseLoginError firebaseLoginError) {
         Toast toast = Toast
-                .makeText(this , USER_ERROR + firebaseLoginError.message, Toast.LENGTH_SHORT);
+                .makeText(this, USER_ERROR + firebaseLoginError.message, Toast.LENGTH_SHORT);
         toast.show();
         resetFirebaseLoginPrompt();
     }
@@ -165,6 +172,7 @@ public class LoginActivity extends FirebaseLoginBaseActivity
                         FragmentCreateUserInfo createUserDialog = FragmentCreateUserInfo.newInstance(username, email);
                         createUserDialog.show(getFragmentManager(), "CreateUserInfo");
                     }
+
                     @Override
                     public void onError(FirebaseError firebaseError) {
                         Toast toast = Toast

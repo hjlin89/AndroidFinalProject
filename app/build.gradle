@@ -44,4 +44,7 @@ dependencies {
     compile 'com.jpardogo.listbuddies:library:1.1.1'
     compile 'com.google.android.gms:play-services-auth:8.3.0'
     compile 'com.android.support:support-v4:23.2.1'
+    compile 'com.nightonke:boommenu:1.0.8'
+    compile 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
+
 }

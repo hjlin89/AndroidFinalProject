@@ -2,9 +2,11 @@ package com.example.gwygw_000.project;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -25,10 +27,14 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.nightonke.boommenu.BoomMenuButton;
+import com.nightonke.boommenu.Types.BoomType;
+import com.nightonke.boommenu.Types.ButtonType;
+import com.nightonke.boommenu.Types.PlaceType;
+import com.nightonke.boommenu.Util;
 
 import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -41,14 +47,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private CircleImageView cImage;
     private TextView tv1;
     private TextView tv2;
+    private BoomMenuButton boomMenuButton;
+    private boolean init = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+
+        boomMenuButton = (BoomMenuButton)findViewById(R.id.boom);
+        boomMenuButton.setOnSubButtonClickListener(new BoomMenuButton.OnSubButtonClickListener() {
+            @Override
+            public void onClick(int buttonIndex) {
+
+            }
+        });
+
         toolbar = (Toolbar) findViewById(R.id.toolbar_in_main);
         setSupportActionBar(toolbar);
+
 
         navigetionView = (NavigationView) findViewById(R.id.navigation_view);
         navigetionView.setNavigationItemSelectedListener(this);
@@ -134,6 +151,56 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.layout_main, TeamPlayerListFragment.newInstance())
                 .commit();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        // Use a param to record whether the boom button has been initialized
+        // Because we don't need to init it again when onResume()
+        if (init) return;
+        init = true;
+
+        String[] subButtonTexts = new String[]{"BoomMenuButton", "View source code", "Follow me"};
+
+        int[][] subButtonColors = new int[3][2];
+        for (int i = 0; i < 3; i++) {
+            subButtonColors[i][1] = ContextCompat.getColor(this, R.color.white);
+            subButtonColors[i][0] = Util.getInstance().getPressedColor(subButtonColors[i][1]);
+        }
+
+        // Now with Builder, you can init BMB more convenient
+        new BoomMenuButton.Builder()
+                .addSubButton(ContextCompat.getDrawable(this, R.drawable.like), subButtonColors[0], "BoomMenuButton")
+                .addSubButton(ContextCompat.getDrawable(this, R.drawable.marker), subButtonColors[0], "View source code")
+                .addSubButton(ContextCompat.getDrawable(this, R.drawable.checkbox), subButtonColors[0], "Follow me")
+                .addSubButton(ContextCompat.getDrawable(this, R.drawable.like), subButtonColors[0], "Forth")
+                .button(ButtonType.CIRCLE)
+                .boom(BoomType.LINE)
+                .place(PlaceType.CIRCLE_4_1)
+                .subButtonTextColor(ContextCompat.getColor(this, R.color.darkness))
+                .subButtonsShadow(Util.getInstance().dp2px(2), Util.getInstance().dp2px(2))
+                .init(boomMenuButton);
+
+//        boomMenuButton.init(
+//                subButtonDrawables, // The drawables of images of sub buttons. Can not be null.
+//                subButtonTexts,     // The texts of sub buttons, ok to be null.
+//                subButtonColors,    // The colors of sub buttons, including pressed-state and normal-state.
+//                ButtonType.HAM,     // The button type.
+//                BoomType.PARABOLA,  // The boom type.
+//                PlaceType.HAM_3_1,  // The place type.
+//                null,               // Ease type to move the sub buttons when showing.
+//                null,               // Ease type to scale the sub buttons when showing.
+//                null,               // Ease type to rotate the sub buttons when showing.
+//                null,               // Ease type to move the sub buttons when dismissing.
+//                null,               // Ease type to scale the sub buttons when dismissing.
+//                null,               // Ease type to rotate the sub buttons when dismissing.
+//                null                // Rotation degree.
+//        );
+//
+//        boomMenuButton.setTextViewColor(ContextCompat.getColor(this, R.color.black));
+//        boomMenuButton.setSubButtonShadowOffset(Util.getInstance().dp2px(2), Util.getInstance().dp2px(2));
     }
 
     @Override
