@@ -1,34 +1,23 @@
 package com.example.gwygw_000.project;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toolbar;
-
-import com.firebase.client.Firebase;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentNewsMain.OnFragmentInteractionListener} interface
+ * {@link NewsViewPagerFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FragmentNewsMain#newInstance} factory method to
+ * Use the {@link NewsViewPagerFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentNewsMain extends Fragment {
-
-
+public class NewsViewPagerFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -39,10 +28,8 @@ public class FragmentNewsMain extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private ArrayList<NewsSectionData> newsSectionDatalist;
-    private NewsData newsData;
 
-    public FragmentNewsMain() {
+    public NewsViewPagerFragment() {
         // Required empty public constructor
     }
 
@@ -50,57 +37,42 @@ public class FragmentNewsMain extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment FragmentNewsMain.
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment NewsViewPagerFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentNewsMain newInstance() {
-        FragmentNewsMain fragment = new FragmentNewsMain();
+    public static NewsViewPagerFragment newInstance(String param1, String param2) {
+        NewsViewPagerFragment fragment = new NewsViewPagerFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
-
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Firebase.setAndroidContext(getActivity());
-        newsData = new NewsData("type");
-        newsSectionDatalist = new ArrayList<>();
-
-        setRetainInstance(true);
-        setHasOptionsMenu(true);
-
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View view = inflater.inflate(R.layout.fragment_news_main, container, false);
-
-        NewsSectionData teams = new NewsSectionData("Teams", "Teams");
-        NewsSectionData players = new NewsSectionData("Players", "Players");
-        NewsSectionData others = new NewsSectionData("Others", "Others");
-
-        newsSectionDatalist.add(teams);
-        newsSectionDatalist.add(players);
-        newsSectionDatalist.add(others);
-
-
-        RecyclerView newsRecyclerView = (RecyclerView) view.findViewById(R.id.newslist_recycler_view);
-        newsRecyclerView.setHasFixedSize(true);
-        NewsRecyclerAdapter adapter = new NewsRecyclerAdapter(getContext(), newsSectionDatalist);
-        newsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        newsRecyclerView.setAdapter(adapter);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_news_view_pager, container, false);
     }
 
-
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -131,6 +103,6 @@ public class FragmentNewsMain extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListItemSelected(int position, HashMap<String, String> movie);
+        void onFragmentInteraction(Uri uri);
     }
 }

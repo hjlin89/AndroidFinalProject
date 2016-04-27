@@ -10,8 +10,8 @@ import java.io.Serializable;
  */
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class News implements Serializable {
-    String Content, Source, Team, Title, Updated, Url, TermsOfUse;
-    Long NewsID, PlayerID, TeamID;
+    String Content, Source, Team, Title, Updated, Url, TermsOfUse, PlayerID;
+    Long NewsID, TeamID;
     public News() {
 
     }
@@ -36,30 +36,37 @@ public class News implements Serializable {
         return NewsID;
     }
 
-    public Long getPlayerID() {
+    @JsonProperty("PlayerID")
+    public String getPlayerID() {
         return PlayerID;
     }
 
+    @JsonProperty("Source")
     public String getSource() {
         return Source;
     }
 
+    @JsonProperty("Team")
     public String getTeam() {
         return Team;
     }
 
+    @JsonProperty("TeamID")
     public Long getTeamID() {
         return TeamID;
     }
 
+    @JsonProperty("TermsOfUse")
     public String getTermsOfUse() {
         return TermsOfUse;
     }
 
+    @JsonProperty("Updated")
     public String getUpdated() {
         return Updated;
     }
 
+    @JsonProperty("Url")
     public String getUrl() {
         return Url;
     }
@@ -69,34 +76,42 @@ public class News implements Serializable {
         Content = content;
     }
 
+    @JsonProperty("NewsID")
     public void setNewsID(Long newsID) {
         NewsID = newsID;
     }
 
-    public void setPlayersID(Long playerID) {
+    @JsonProperty("PlayerID")
+    public void setPlayersID(String playerID) {
         PlayerID = playerID;
     }
 
+    @JsonProperty("Sources")
     public void setSources(String source) {
         Source = source;
     }
 
+    @JsonProperty("Team")
     public void setTeam(String team) {
         Team = team;
     }
 
+    @JsonProperty("TeamID")
     public void setTeamID(Long teamID) {
         TeamID = teamID;
     }
 
+    @JsonProperty("TermsOfUse")
     public void setTermsOfUse(String termsOfUse) {
         TermsOfUse = termsOfUse;
     }
 
+    @JsonProperty("Updated")
     public void setUpdated(String updated) {
         Updated = updated;
     }
 
+    @JsonProperty("Url")
     public void setUrl(String url) {
         Url = url;
     }

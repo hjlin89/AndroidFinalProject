@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.firebase.client.Query;
 import com.firebase.ui.FirebaseRecyclerAdapter;
+import com.squareup.picasso.Picasso;
 
 public class SmallNewsFirebaseRecylerAdapter extends FirebaseRecyclerAdapter<News, SmallNewsFirebaseRecylerAdapter.NewsSmallViewHolder> {
 
@@ -20,7 +21,6 @@ public class SmallNewsFirebaseRecylerAdapter extends FirebaseRecyclerAdapter<New
                                     Class<NewsSmallViewHolder> holder, Query ref, Context context) {
         super(modelClass,modelLayout,holder,ref);
         this.mContext = context;
-
     }
 
     public void setOnItemClickListener(final OnItemClickListener onItemClickListener) {
@@ -46,10 +46,10 @@ public class SmallNewsFirebaseRecylerAdapter extends FirebaseRecyclerAdapter<New
     @Override
     protected void populateViewHolder(NewsSmallViewHolder newsSmallViewHolder, News news, int i) {
 
-        //TODO: Populate viewHolder by setting the movie attributes to cardview fields
-        newsSmallViewHolder.vIcon.setImageResource(R.drawable.kobe);
-        newsSmallViewHolder.vTitle.setText(news.getTitle());
-        newsSmallViewHolder.vDetail.setText(news.getContent());
+        //TODO : set the Image by url using piccaso
+        Picasso.with(this.mContext).load(news.getUrl()).into(newsSmallViewHolder.vIcon);
+        newsSmallViewHolder.vTitle.setText(news.getTeam());
+        newsSmallViewHolder.vDetail.setText(news.getTitle());
     }
 
     public static class NewsSmallViewHolder extends RecyclerView.ViewHolder {

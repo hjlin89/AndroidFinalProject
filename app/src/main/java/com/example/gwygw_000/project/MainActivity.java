@@ -18,6 +18,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,9 @@ import java.util.HashMap;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener,
+            FragmentNewsMain.OnFragmentInteractionListener{
 
     private Toolbar toolbar;
     private NavigationView navigetionView;
@@ -59,12 +62,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         boomMenuButton.setOnSubButtonClickListener(new BoomMenuButton.OnSubButtonClickListener() {
             @Override
             public void onClick(int buttonIndex) {
-
+                switch (buttonIndex) {
+                    case 0:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.layout_main, FragmentNewsMain.newInstance())
+                                .commit();
+                        break;
+                    case 1:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.layout_main, TeamPlayerListFragment.newInstance())
+                                .commit();
+                        break;
+                    case 2:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.layout_main, VideoListFragment.newInstance())
+                                .commit();
+                        break;
+                    case 3:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.layout_main, FragmentNewsMain.newInstance())
+                                .commit();
+                        break;
+                    default:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.layout_main, FragmentNewsMain.newInstance())
+                                .commit();
+                        break;
+                }
             }
         });
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar_in_main);
-        setSupportActionBar(toolbar);
+        //toolbar = (Toolbar) findViewById(R.id.toolbar_in_main);
+        //setSupportActionBar(toolbar);
+        //toolbar.setCollapsible(true);
 
 
         navigetionView = (NavigationView) findViewById(R.id.navigation_view);
@@ -127,29 +157,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
 
-
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        ActionBarDrawerToggle actionBarDrawerToggle =
-                new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close){
-                    @Override
-                    public void onDrawerClosed(View drawerView){
-                        super.onDrawerClosed(drawerView);
-                    }
 
-                    @Override
-                    public void onDrawerOpened(View drawerView){
-                        super.onDrawerOpened(drawerView);
-                    }
-                };
-
-        drawerLayout.setDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-
-
-
-
+        //drawerLayout.openDrawer(Gravity.LEFT);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.layout_main, TeamPlayerListFragment.newInstance())
+                .replace(R.id.layout_main, FragmentNewsMain.newInstance())
                 .commit();
     }
 
@@ -206,5 +218,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         return false;
+    }
+
+    @Override
+    public void onListItemSelected(int position, HashMap<String, String> movie) {
+
     }
 }

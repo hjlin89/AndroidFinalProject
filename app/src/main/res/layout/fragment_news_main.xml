@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_in_main"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|enterAlways" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/newslist_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
 
-
-</RelativeLayout>
+    </android.support.v7.widget.RecyclerView>
+</android.support.design.widget.CoordinatorLayout>

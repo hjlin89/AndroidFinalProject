@@ -4,10 +4,13 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation = "horizontal"
     android:layout_width="120dp"
-    android:layout_height="170dp"
+    android:layout_height="150dp"
     android:layout_margin="5dp"
     card_view:cardCornerRadius="5dp"
-    card_view:cardBackgroundColor="#ccc"
+    card_view:cardBackgroundColor="#E6E6E6"
+    card_view:cardElevation="8dp"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     >
 
     <LinearLayout
@@ -19,20 +22,25 @@
             android:id="@+id/news_img"
             android:layout_width="match_parent"
             android:layout_height="85dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
             android:src="@drawable/kobe"/>
 
         <TextView
             android:id="@+id/news_title"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:text="Title"/>
 
         <TextView
             android:id="@+id/news_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:textSize="10dp"
             android:text="Detail"/>
-
     </LinearLayout>
 
 

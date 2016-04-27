@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
+import com.firebase.ui.FirebaseRecyclerAdapter;
 
 import java.util.ArrayList;
 
@@ -32,12 +33,11 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     public ItemRowHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_list, null);
         ItemRowHolder mh = new ItemRowHolder(v);
-
         return mh;
     }
 
     @Override
-    public void onBindViewHolder(ItemRowHolder holder, int position) {
+    public void onBindViewHolder(ItemRowHolder holder, final int position) {
 
         holder.itemTitle.setText(list.get(position).getHeaderTitle());
 
@@ -45,8 +45,20 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(), "Add click event here", Toast.LENGTH_SHORT).show();
-
-            }
+                switch (position) {
+                    case 0:
+                        // team
+                        break;
+                    case 1:
+                        // player
+                        break;
+                    case 2:
+                        // others
+                        break;
+                    default:
+                        // team
+                }
+             }
         });
 
         holder.recycler_view_list.setHasFixedSize(true);
@@ -55,26 +67,34 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
         oriLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
         holder.recycler_view_list.setLayoutManager(oriLayout);
 
-        //oriLayout.setOrientation(LinearLayoutManager.HORIZONTAL);
-//        playersRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        othersRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         Firebase ref = new Firebase("https://luminous-heat-2520.firebaseio.com");
         Firebase news = ref.child("News");
-        SmallNewsFirebaseRecylerAdapter myRecyclerViewAdapter = new SmallNewsFirebaseRecylerAdapter(News.class, R.layout.fragment_news_main,
-                SmallNewsFirebaseRecylerAdapter.NewsSmallViewHolder.class, news, mContext);
+
+        FirebaseRecyclerAdapter myRecyclerViewAdapter;
+        switch (position) {
+            case 0:
+                news = news.child("TeamsNews");
+                myRecyclerViewAdapter = new SmallNewsFirebaseRecylerAdapter(News.class, R.layout.fragment_news_main,
+                        SmallNewsFirebaseRecylerAdapter.NewsSmallViewHolder.class, news, mContext);
+                break;
+            case 1:
+                news = news.child("PlayersNews");
+                myRecyclerViewAdapter = new SmallNewsPlayerAdapter(News.class, R.layout.fragment_news_main,
+                        SmallNewsPlayerAdapter.NewsSmallViewHolder.class, news, mContext);
+                break;
+            case 2:
+                news = news.child("OthersNews");
+                myRecyclerViewAdapter = new SmallNewsOthersAdapter(News.class, R.layout.fragment_news_main,
+                        SmallNewsOthersAdapter.NewsSmallViewHolder.class, news, mContext);
+                break;
+            default:
+                news = news.child("TeamsNews");
+                myRecyclerViewAdapter = new SmallNewsFirebaseRecylerAdapter(News.class, R.layout.fragment_news_main,
+                        SmallNewsFirebaseRecylerAdapter.NewsSmallViewHolder.class, news, mContext);
+
+        }
+
         holder.recycler_view_list.setAdapter(myRecyclerViewAdapter);
-
-//        playersRecyclerView.setAdapter(myRecyclerViewAdapter);
-//        othersRecyclerView.setAdapter(myRecyclerViewAdapter);
-
-
-
-//        if (newsData.getSize() == 0) {
-//            newsData.setSamllnewsAdapter(myRecyclerViewAdapter);
-//            newsData.setContext(getActivity());
-//            newsData.initializeDataFromCloud();
-//        }
 
     }
 
