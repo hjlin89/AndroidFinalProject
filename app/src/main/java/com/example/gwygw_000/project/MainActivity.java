@@ -3,6 +3,7 @@ package com.example.gwygw_000.project;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -16,12 +17,14 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.client.ChildEventListener;
@@ -42,7 +45,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-            FragmentNewsMain.OnFragmentInteractionListener{
+            FragmentNewsMain.OnFragmentInteractionListener,
+            NewsPageFragment.OnFragmentInteractionListener,
+            PlayerListFragment.OnFragmentInteractionListener{
 
     private Toolbar toolbar;
     private NavigationView navigetionView;
@@ -161,7 +166,7 @@ public class MainActivity extends AppCompatActivity
 
         //drawerLayout.openDrawer(Gravity.LEFT);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.layout_main, FragmentNewsMain.newInstance())
+                .replace(R.id.layout_main, PlayerListFragment.newInstance("WAS"))
                 .commit();
     }
 
@@ -221,7 +226,34 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListItemSelected(int position, HashMap<String, String> movie) {
+    public void onListItemSelected(int position, HashMap<String, String> news, ImageView shareImage) {
+        NewsPageFragment newsFragment = NewsPageFragment.newInstance(news);
+        newsFragment.setSharedElementEnterTransition(new DetailTransition());
+        newsFragment.setEnterTransition(new Fade());
+        newsFragment.setExitTransition(new Fade());
+        newsFragment.setSharedElementReturnTransition(new DetailTransition());
 
+        getSupportFragmentManager()
+                .beginTransaction()
+                .addSharedElement(shareImage, "photo")
+                .addToBackStack(null)
+                .replace(R.id.layout_main, newsFragment)
+                .commit();
+    }
+
+    // news page
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    // player list
+    @Override
+    public void onListItemSelected(int position, HashMap<String, String> player) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.layout_main, PlayerPageFragment.newInstance(player))
+                .commit();
     }
 }

@@ -1,6 +1,9 @@
 package com.example.gwygw_000.project;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.media.Image;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +41,6 @@ public class SmallNewsFirebaseRecylerAdapter extends FirebaseRecyclerAdapter<New
         v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.news_cardview_small, parent, false);
 
-
         NewsSmallViewHolder vh = new NewsSmallViewHolder(v);
         return vh;
     }
@@ -66,9 +68,11 @@ public class SmallNewsFirebaseRecylerAdapter extends FirebaseRecyclerAdapter<New
 
             v.setOnClickListener(new View.OnClickListener() {
 
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onClick(View v) {
                     if (mItemClickListener != null) {
+                        vIcon.setTransitionName("photo");
                         mItemClickListener.onItemClick(v, getLayoutPosition());
                     }
                 }

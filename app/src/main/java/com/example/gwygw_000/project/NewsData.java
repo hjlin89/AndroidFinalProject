@@ -21,7 +21,7 @@ public class NewsData {
     SmallNewsFirebaseRecylerAdapter smallNewsFirebaseRecylerAdapter;
     Context mContext;
 
-    public List<Map<String, ?>> getMoviesList() {
+    public List<Map<String, ?>> getNewsList() {
         return newsList;
     }
 
@@ -59,17 +59,18 @@ public class NewsData {
     public NewsData(String newstype){
         newsList = new ArrayList<Map<String,?>>();
         mRef = new Firebase("https://luminous-heat-2520.firebaseio.com");
+        initializeDataFromCloud(newstype);
     }
 
 
-	public void initializeDataFromCloud() {
+	public void initializeDataFromCloud(String name) {
         newsList.clear();
 
-        mRef.child("News").addChildEventListener(new ChildEventListener() {
+        mRef.child("News").child(name).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                Log.d("MyTest: onChildAdded", dataSnapshot.toString());
+                //Log.d("MyTest: onChildAdded", dataSnapshot.toString());
                 HashMap<String, ?> news = (HashMap<String, ?>) dataSnapshot.getValue();
 
 //                for (String key : news.keySet()) {

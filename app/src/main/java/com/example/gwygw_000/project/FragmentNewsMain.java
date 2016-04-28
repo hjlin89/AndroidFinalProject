@@ -5,14 +5,19 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toolbar;
 
 import com.firebase.client.Firebase;
+import com.nightonke.boommenu.BoomMenuButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,7 +45,10 @@ public class FragmentNewsMain extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private ArrayList<NewsSectionData> newsSectionDatalist;
-    private NewsData newsData;
+    private NewsData teamsNewsData;
+    private NewsData PlayersNewsData;
+    private NewsData othersNewsData;
+
 
     public FragmentNewsMain() {
         // Required empty public constructor
@@ -67,7 +75,10 @@ public class FragmentNewsMain extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(getActivity());
-        newsData = new NewsData("type");
+
+        PlayersNewsData = new NewsData("PlayersNews");
+        othersNewsData = new NewsData("OthersNews");
+
         newsSectionDatalist = new ArrayList<>();
 
         setRetainInstance(true);
@@ -81,21 +92,48 @@ public class FragmentNewsMain extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_news_main, container, false);
+        newsSectionDatalist.clear();
 
-        NewsSectionData teams = new NewsSectionData("Teams", "Teams");
+        final BoomMenuButton boomMenuButton = (BoomMenuButton) getActivity().findViewById(R.id.boom);
+        boomMenuButton.setVisibility(BoomMenuButton.GONE);
+
+        final NewsSectionData teams = new NewsSectionData("Teams", "Teams");
         NewsSectionData players = new NewsSectionData("Players", "Players");
         NewsSectionData others = new NewsSectionData("Others", "Others");
+
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) view.findViewById(R.id.toolbar);
+        toolbar.setTitle("News");
+        toolbar.inflateMenu(R.menu.drawer);
+        toolbar.setOnMenuItemClickListener(new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return false;
+            }
+        });
+        //((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         newsSectionDatalist.add(teams);
         newsSectionDatalist.add(players);
         newsSectionDatalist.add(others);
 
-
         RecyclerView newsRecyclerView = (RecyclerView) view.findViewById(R.id.newslist_recycler_view);
         newsRecyclerView.setHasFixedSize(true);
-        NewsRecyclerAdapter adapter = new NewsRecyclerAdapter(getContext(), newsSectionDatalist);
+        NewsRecyclerAdapter adapter = new NewsRecyclerAdapter(getContext(), newsSectionDatalist, mListener);
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         newsRecyclerView.setAdapter(adapter);
+
+        newsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    boomMenuButton.setVisibility(boomMenuButton.VISIBLE);
+                } else {
+                    boomMenuButton.setVisibility(boomMenuButton.GONE);
+
+                }
+            }
+        } );
 
         return view;
     }
@@ -131,6 +169,6 @@ public class FragmentNewsMain extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListItemSelected(int position, HashMap<String, String> movie);
+        void onListItemSelected(int position, HashMap<String, String> news, ImageView imageView);
     }
 }

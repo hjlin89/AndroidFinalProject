@@ -8,7 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <RelativeLayout
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -25,9 +25,11 @@
             android:layout_margin="20dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            app:layout_anchor="@id/layout_main"
+            app:layout_anchorGravity="bottom|right|end"
             />
 
-    </RelativeLayout>
+    </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"

@@ -12,11 +12,15 @@ public class Player {
     String firstName;
     String lastName;
     Long Height;
+    Long Weight;
+    Long Jersey;
+    Long Experience;
+    String Status;
     String team;
     String DOB;
     String position;
     String photoUrl;
-    //
+
 
     public Player() {
 
@@ -27,9 +31,6 @@ public class Player {
 
     @JsonProperty("LastName")
     public String getLastName() {return lastName;}
-
-
-
 
     @JsonProperty("Height")
     public Long getHeight() {return Height;}
@@ -45,4 +46,16 @@ public class Player {
 
     @JsonProperty("PhotoUrl")
     public String getPhotoUrl() {return photoUrl;}
+
+    @JsonProperty("Weight")
+    public Long getWeight() {return Weight;}
+
+    @JsonProperty("Jersey")
+    public Long getJersey() {return Jersey;}
+
+    @JsonProperty("Experience")
+    public Long getExperience() {return Experience;}
+
+    @JsonProperty("Status")
+    public String getStatus() {return Status;}
 }

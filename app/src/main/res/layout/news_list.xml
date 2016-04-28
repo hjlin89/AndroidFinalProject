@@ -1,50 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
+    android:layout_height="175dp"
+    xmlns:card_view="http://schemas.android.com/tools"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardBackgroundColor="#E6E6E6"
+    card_view:cardElevation="8dp"
     android:background="?android:selectableItemBackground"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="0dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="2dp">
+        android:orientation="vertical">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/itemTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Sample title"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/itemTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text=" "/>
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/news_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
             android:layout_gravity="center_vertical"
-            android:layout_toLeftOf="@+id/btnMore"
-            android:text="Sample title"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:orientation="horizontal" />
 
-        <Button
-            android:id="@+id/btnMore"
-            android:layout_width="wrap_content"
-            android:layout_height="42dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="more"
-            android:textColor="#FFF" />
+    </LinearLayout>
 
-
-    </RelativeLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/news_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_gravity="center_vertical"
-        android:orientation="horizontal" />
-
-
-</LinearLayout>
+</android.support.v7.widget.CardView>
