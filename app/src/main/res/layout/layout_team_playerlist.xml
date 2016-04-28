@@ -14,7 +14,7 @@
             android:id="@+id/team_playerlist_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"></android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout

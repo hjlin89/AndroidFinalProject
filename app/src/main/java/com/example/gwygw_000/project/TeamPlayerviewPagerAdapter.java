@@ -10,9 +10,9 @@ import java.util.List;
 /**
  * Created by gwygw_000 on 2016/4/14.
  */
-public class TeamPlayerviewPagerAdapter extends FragmentStatePagerAdapter{
-    private  final List<Fragment> mFragmentList = new ArrayList<>();
-    private final List<String> mFragmentTitle = new ArrayList<>();
+public class TeamPlayerviewPagerAdapter extends FragmentStatePagerAdapter {
+    final List<Fragment> mFragmentList = new ArrayList<>();
+    final List<String> mFragmentTitle = new ArrayList<>();
 
     public TeamPlayerviewPagerAdapter(FragmentManager fm) {
         super(fm);

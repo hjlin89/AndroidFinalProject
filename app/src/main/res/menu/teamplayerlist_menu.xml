@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/teamplayerlistsearch"
+        android:title="Search"
+        android:icon="@drawable/search"
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass = "android.support.v7.widget.SearchView"></item>
+
+    <item android:id="@+id/teamplayerlist_action_share"
+        android:title="Share"
+        android:icon="@drawable/share"
+        app:showAsAction = "always"></item>
+
+    <item android:id="@+id/AccordionTransformer"
+        android:title="AT"
+        app:showAsAction = "never"></item>
+
+    <item android:id="@+id/CubeInTransformer"
+        android:title="CIT"
+        app:showAsAction = "never"></item>
+
+    <item android:id="@+id/ZoomInTransformer"
+        android:title="ZIT"
+        app:showAsAction = "never"></item>
+
+    <item android:id="@+id/RotateDownTransformer"
+        android:title="RDT"
+        app:showAsAction = "never"></item>
+
+    <item android:id="@+id/FlipVerticalTransformer"
+        android:title="FVT"
+        app:showAsAction = "never"></item>
+</menu>

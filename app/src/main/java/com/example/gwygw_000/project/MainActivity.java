@@ -64,46 +64,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //startActivity(new Intent(this, GoogleMapActivity.class));
-
         boomMenuButton = (BoomMenuButton)findViewById(R.id.boom);
-        boomMenuButton.setOnSubButtonClickListener(new BoomMenuButton.OnSubButtonClickListener() {
-            @Override
-            public void onClick(int buttonIndex) {
-                switch (buttonIndex) {
-                    case 0:
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.layout_main, FragmentNewsMain.newInstance())
-                                .commit();
-                        break;
-                    case 1:
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.layout_main, TeamPlayerListFragment.newInstance())
-                                .commit();
-                        break;
-                    case 2:
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.layout_main, VideoListFragment.newInstance())
-                                .commit();
-                        break;
-                    case 3:
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.layout_main, FragmentNewsMain.newInstance())
-                                .commit();
-                        break;
-                    default:
-                        getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.layout_main, FragmentNewsMain.newInstance())
-                                .commit();
-                        break;
-                }
-            }
-        });
-
-        //toolbar = (Toolbar) findViewById(R.id.toolbar_in_main);
-        //setSupportActionBar(toolbar);
-        //toolbar.setCollapsible(true);
-
 
         navigetionView = (NavigationView) findViewById(R.id.navigation_view);
         navigetionView.setNavigationItemSelectedListener(this);
@@ -192,16 +153,56 @@ public class MainActivity extends AppCompatActivity
 
         // Now with Builder, you can init BMB more convenient
         new BoomMenuButton.Builder()
-                .addSubButton(ContextCompat.getDrawable(this, R.drawable.like), subButtonColors[0], "BoomMenuButton")
-                .addSubButton(ContextCompat.getDrawable(this, R.drawable.marker), subButtonColors[0], "View source code")
-                .addSubButton(ContextCompat.getDrawable(this, R.drawable.checkbox), subButtonColors[0], "Follow me")
-                .addSubButton(ContextCompat.getDrawable(this, R.drawable.like), subButtonColors[0], "Forth")
+                .addSubButton(ContextCompat.getDrawable(this, R.drawable.like), subButtonColors[0], "News")
+                .addSubButton(ContextCompat.getDrawable(this, R.drawable.marker), subButtonColors[0], "Players")
+                .addSubButton(ContextCompat.getDrawable(this, R.drawable.checkbox), subButtonColors[0], "Teams")
+                .addSubButton(ContextCompat.getDrawable(this, R.drawable.like), subButtonColors[0], "Schedule")
+                .addSubButton(ContextCompat.getDrawable(this, R.drawable.like), subButtonColors[0], "Videos")
                 .button(ButtonType.CIRCLE)
                 .boom(BoomType.LINE)
-                .place(PlaceType.CIRCLE_4_1)
+                .place(PlaceType.CIRCLE_5_1)
                 .subButtonTextColor(ContextCompat.getColor(this, R.color.darkness))
                 .subButtonsShadow(Util.getInstance().dp2px(2), Util.getInstance().dp2px(2))
                 .init(boomMenuButton);
+
+        boomMenuButton.setOnSubButtonClickListener(new BoomMenuButton.OnSubButtonClickListener() {
+            @Override
+            public void onClick(int buttonIndex) {
+                switch (buttonIndex) {
+                    case 0:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.layout_main, FragmentNewsMain.newInstance())
+                                .commit();
+                        break;
+                    case 1:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.layout_main, TeamPlayerListFragment.newInstance())
+                                .commit();
+                        break;
+                    case 2:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.layout_main, TeamListFragment.newInstance())
+                                .commit();
+                        break;
+                    case 3:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.layout_main, ScheduleListFragment.newInstance())
+                                .commit();
+                        break;
+                    case 4:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.layout_main, VideoListFragment.newInstance())
+                                .commit();
+                        break;
+                    default:
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.layout_main, FragmentNewsMain.newInstance())
+                                .commit();
+                        break;
+                }
+            }
+        });
+
 
 //        boomMenuButton.init(
 //                subButtonDrawables, // The drawables of images of sub buttons. Can not be null.
