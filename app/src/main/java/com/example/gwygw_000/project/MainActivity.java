@@ -1,5 +1,6 @@
 package com.example.gwygw_000.project;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //startActivity(new Intent(this, GoogleMapActivity.class));
 
         boomMenuButton = (BoomMenuButton)findViewById(R.id.boom);
         boomMenuButton.setOnSubButtonClickListener(new BoomMenuButton.OnSubButtonClickListener() {
@@ -166,7 +169,7 @@ public class MainActivity extends AppCompatActivity
 
         //drawerLayout.openDrawer(Gravity.LEFT);
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.layout_main, PlayerListFragment.newInstance("WAS"))
+                .replace(R.id.layout_main, TeamListFragment.newInstance())
                 .commit();
     }
 

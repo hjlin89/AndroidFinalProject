@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
@@ -28,10 +29,6 @@ public class VideoListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         videoAdapter = new VideoAdapter(getContext());
-        String[] VideoID = {"P3mAtvs5Elc", "nCgQDjiotG0", "P3mAtvs5Elc"};
-        for (String str : VideoID) {
-            videoAdapter.addItem(str);
-        }
     }
 
     @Nullable
@@ -43,8 +40,34 @@ public class VideoListFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setAdapter(videoAdapter);
+        MyDownloadVideolistTask myDownloadVideolistTask = new MyDownloadVideolistTask(videoAdapter);
+        String url = FirebaseLib.PHP_SERVER + "videos/";
+        myDownloadVideolistTask.execute(url);
         return view;
     }
 
-    //private class MyDownloadVideolistTask extends AsyncTask<String, Void, List<String>>
+    private class MyDownloadVideolistTask extends AsyncTask<String, Void, List<String>> {
+        private final WeakReference<VideoAdapter> adapterWeakReference;
+
+        public MyDownloadVideolistTask(VideoAdapter adapter) {
+            adapterWeakReference = new WeakReference<VideoAdapter>(adapter);
+        }
+
+        @Override
+        protected List<String> doInBackground(String... urls) {
+            List<String> result = FirebaseLib.downloadVideoKey(urls[0]);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(List<String> strings) {
+            if (adapterWeakReference != null) {
+                final VideoAdapter adpter = adapterWeakReference.get();
+                if (adpter != null) {
+                    adpter.videoID.addAll(strings);
+                    adpter.notifyDataSetChanged();
+                }
+            }
+        }
+    }
 }

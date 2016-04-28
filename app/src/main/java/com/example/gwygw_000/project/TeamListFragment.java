@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 
 import com.jpardogo.listbuddies.lib.views.ListBuddiesLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,9 +43,17 @@ public class TeamListFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.layout_teamlist, container, false);
+        //final PlayerListFragment.OnListItemSelectedListener mListener = (PlayerListFragment.OnListItemSelectedListener)getContext();
         listbuddies = (ListBuddiesLayout)rootView.findViewById(R.id.team_list_listbuddieslayout);
-        leftAdapter = new TeamListAdapter();
-        rightAdapter = new TeamListAdapter();
+        leftAdapter = new TeamListAdapter(getContext(), new ArrayList<Team>());
+        rightAdapter = new TeamListAdapter(getContext(), new ArrayList<Team>());
+        leftAdapter.setOnItemClcikListener(new TeamListAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                String teamName = leftAdapter.teamList.get(position).getKey();
+                //mListener.onListItemSelected(teamName);
+            }
+        });
         listbuddies.setAdapters(leftAdapter, rightAdapter);
 
         firebaseLib.setOnTeamListener(new FirebaseLib.TeamListener() {

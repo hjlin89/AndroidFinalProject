@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
@@ -20,6 +21,8 @@ import java.net.UnknownHostException;
  * Revised by kevin on 3/9/2016.
  */
 public class MyUtility {
+
+    private static String API_KEY = "c4fda72d998c434796b0e725ab6a1af4";
 
     // Download an image using HTTP Get Request
     public static Bitmap downloadImageusingHTTPGetRequest(String urlString) {
@@ -166,6 +169,35 @@ public class MyUtility {
         }
 
         if (httpConnection != null) httpConnection.disconnect();
+    }
+
+    public static String downloadFromThirdParty(String addr) {
+        String result = null;
+        HttpURLConnection httpURLConnection = null;
+        try {
+            URL url = new URL(addr);
+            httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setReadTimeout(1000);
+            httpURLConnection.setRequestProperty("Ocp-Apim-Subscription-Key", API_KEY);
+            if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                InputStream stream = httpURLConnection.getInputStream();
+                result = getStringfromStream(stream);
+            }
+        }  catch (MalformedURLException e) {
+            Log.d("error", "Can't create url");
+            e.printStackTrace();
+        } catch (IOException e) {
+            Log.d("error", "Can't create HttpURLConnection");
+            e.printStackTrace();
+        } catch (Exception e) {
+            Log.d("error", "Can't get responsecode");
+            Log.d("error", e.getMessage());
+            e.printStackTrace();
+        } finally {
+            httpURLConnection.disconnect();
+            Log.d("result", result);
+            return result;
+        }
     }
 
 }

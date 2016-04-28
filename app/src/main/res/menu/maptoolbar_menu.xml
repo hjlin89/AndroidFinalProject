@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/mapsearch"
+        android:title="Search"
+        android:icon="@drawable/search"
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass = "android.support.v7.widget.SearchView"></item>
+
+    <item
+        android:id="@+id/mapRoadMap"
+        android:title="RoadMap"
+        app:showAsAction="never"
+        ></item>
+
+    <item
+        android:id="@+id/mapHyBrid"
+        android:title="HyBrid"
+        app:showAsAction="never"></item>
+
+    <item
+        android:id="@+id/mapTerrain"
+        android:title="Terrain"
+        app:showAsAction="never"></item>
+</menu>

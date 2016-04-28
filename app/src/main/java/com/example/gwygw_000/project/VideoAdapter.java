@@ -3,9 +3,6 @@ package com.example.gwygw_000.project;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.Image;
-import android.sax.RootElement;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayerFragment;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
@@ -94,7 +90,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoInfoHol
 
         @Override
         public void onClick(View v) {
-            Intent intent = YouTubeStandalonePlayer.createVideoIntent((Activity)mContext, YoutubeConfig.YOUTUBE_KEY, videoID.get(getLayoutPosition()));
+            Intent intent = YouTubeStandalonePlayer.createVideoIntent((Activity) mContext, YoutubeConfig.YOUTUBE_KEY, videoID.get(getLayoutPosition()));
             mContext.startActivity(intent);
         }
     }
