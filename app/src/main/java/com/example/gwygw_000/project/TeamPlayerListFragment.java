@@ -54,6 +54,7 @@ public class TeamPlayerListFragment extends Fragment {
         //setHasOptionsMenu(true);
         View rootView = inflater.inflate(R.layout.layout_team_playerlist, container, false);
         toolbar = (Toolbar)rootView.findViewById(R.id.team_playerlist_toolbar);
+        toolbar.setTitle("Plays");
         if (toolbar.getMenu().findItem(R.id.teamplayerlistsearch) == null) {
             toolbar.inflateMenu(R.menu.teamplayerlist_menu);
             SearchView search = (SearchView)toolbar.getMenu().findItem(R.id.teamplayerlistsearch).getActionView();

@@ -1,5 +1,7 @@
 package com.example.gwygw_000.project;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.youtube.player.YouTubePlayerFragment;
+import com.google.android.youtube.player.YouTubeStandalonePlayer;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -28,7 +33,19 @@ public class VideoListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        videoAdapter = new VideoAdapter(getContext());
+        final VideoListLoadFragment mListener = (VideoListLoadFragment)getContext();
+
+        videoAdapter = new VideoAdapter(getActivity(), getActivity());
+        videoAdapter.setOnVideoClickListener(new VideoAdapter.VideoClick() {
+            @Override
+            public void click(String youtubeKey, String key) {
+                mListener.loadVideoFragment(key);
+            }
+        });
+    }
+
+    public interface VideoListLoadFragment {
+        void loadVideoFragment(String key);
     }
 
     @Nullable

@@ -3,28 +3,19 @@ package com.example.gwygw_000.project;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.transition.Fade;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,7 +39,10 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
             FragmentNewsMain.OnFragmentInteractionListener,
             NewsPageFragment.OnFragmentInteractionListener,
-            PlayerListFragment.OnFragmentInteractionListener{
+            PlayerListFragment.OnFragmentInteractionListener,
+            VideoListFragment.VideoListLoadFragment{
+
+    Fragment mContent;
 
     private Toolbar toolbar;
     private NavigationView navigetionView;
@@ -129,9 +123,16 @@ public class MainActivity extends AppCompatActivity
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 
         //drawerLayout.openDrawer(Gravity.LEFT);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.layout_main, TeamListFragment.newInstance())
-                .commit();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.layout_main, FragmentNewsMain.newInstance())
+                    .addToBackStack(null)
+                    .commit();
+        }
+//        } else {
+//            mContent = getSupportFragmentManager().getFragment(savedInstanceState, "mContent");
+//        }
+
     }
 
     @Override
@@ -143,21 +144,26 @@ public class MainActivity extends AppCompatActivity
         if (init) return;
         init = true;
 
-        String[] subButtonTexts = new String[]{"BoomMenuButton", "View source code", "Follow me"};
+        int[] colors = new int[5];
+        colors[0] = R.color.blue;
+        colors[1] = R.color.green;
+        colors[2] = R.color.purple;
+        colors[3] = R.color.lime;
+        colors[4] = R.color.green_teal;
 
-        int[][] subButtonColors = new int[3][2];
-        for (int i = 0; i < 3; i++) {
-            subButtonColors[i][1] = ContextCompat.getColor(this, R.color.white);
+        int[][] subButtonColors = new int[5][2];
+        for (int i = 0; i < 5; i++) {
+            subButtonColors[i][1] = ContextCompat.getColor(this, colors[i]);
             subButtonColors[i][0] = Util.getInstance().getPressedColor(subButtonColors[i][1]);
         }
 
         // Now with Builder, you can init BMB more convenient
         new BoomMenuButton.Builder()
-                .addSubButton(ContextCompat.getDrawable(this, R.drawable.like), subButtonColors[0], "News")
-                .addSubButton(ContextCompat.getDrawable(this, R.drawable.marker), subButtonColors[0], "Players")
-                .addSubButton(ContextCompat.getDrawable(this, R.drawable.checkbox), subButtonColors[0], "Teams")
-                .addSubButton(ContextCompat.getDrawable(this, R.drawable.like), subButtonColors[0], "Schedule")
-                .addSubButton(ContextCompat.getDrawable(this, R.drawable.like), subButtonColors[0], "Videos")
+                .addSubButton(ContextCompat.getDrawable(this, R.drawable.icon_news), subButtonColors[0], "")
+                .addSubButton(ContextCompat.getDrawable(this, R.drawable.icon_palyer), subButtonColors[1], "")
+                .addSubButton(ContextCompat.getDrawable(this, R.drawable.icon_team), subButtonColors[2], "")
+                .addSubButton(ContextCompat.getDrawable(this, R.drawable.icon_schedule), subButtonColors[3], "")
+                .addSubButton(ContextCompat.getDrawable(this, R.drawable.icon_video), subButtonColors[4], "")
                 .button(ButtonType.CIRCLE)
                 .boom(BoomType.LINE)
                 .place(PlaceType.CIRCLE_5_1)
@@ -226,6 +232,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.main_menu_map:
+                Intent intent = new Intent(this, GoogleMapActivity.class);
+                startActivity(intent);
+                return true;
+        }
         return false;
     }
 
@@ -258,6 +271,17 @@ public class MainActivity extends AppCompatActivity
                 .beginTransaction()
                 .addToBackStack(null)
                 .replace(R.id.layout_main, PlayerPageFragment.newInstance(player))
+                .commit();
+    }
+
+
+    @Override
+    public void loadVideoFragment(String key) {
+        Fragment fragment = YouTubeFragment.newInstance(key);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.layout_main, fragment)
                 .commit();
     }
 }

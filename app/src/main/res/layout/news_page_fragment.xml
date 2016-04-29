@@ -21,7 +21,11 @@
             android:textSize="30dp"
             android:text="Title"/>
 
-
+        <TextView
+            android:text=" "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,6 +45,7 @@
 
         <ImageView
             android:id="@+id/news_page_photo"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/kobe"/>

@@ -3,6 +3,7 @@ package com.example.gwygw_000.project;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubeIntents;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
@@ -23,6 +25,9 @@ import java.util.LinkedList;
 public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoInfoHolder> {
 
     Context mContext;
+    Activity mactivity;
+    VideoClick mVideoClick;
+
     LinkedList<String> videoID = new LinkedList<String>();
 
 
@@ -30,9 +35,12 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoInfoHol
         videoID.add(str);
     }
 
-    public VideoAdapter(Context context) {
+    public VideoAdapter(Context context, Activity activity) {
+
         this.mContext = context;
+        this.mactivity = activity;
     }
+
 
     @Override
     public VideoInfoHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -69,6 +77,14 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoInfoHol
         });
     }
 
+    public interface VideoClick {
+        void click(String youtubeKey, String key);
+    }
+
+    public void setOnVideoClickListener(final VideoClick videoClick) {
+        this.mVideoClick = videoClick;
+    }
+
     @Override
     public int getItemCount() {
         return videoID.size();
@@ -90,8 +106,11 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoInfoHol
 
         @Override
         public void onClick(View v) {
-            Intent intent = YouTubeStandalonePlayer.createVideoIntent((Activity) mContext, YoutubeConfig.YOUTUBE_KEY, videoID.get(getLayoutPosition()));
-            mContext.startActivity(intent);
+            //mVideoClick.click("", videoID.get(getLayoutPosition()));
+//            Intent intent = YouTubeStandalonePlayer.createVideoIntent((Activity)mContext, YoutubeConfig.YOUTUBE_KEY, videoID.get(getLayoutPosition()),100,true, false);
+//
+//            mactivity.startActivity(intent);
+            mContext.startActivity(YouTubeIntents.createPlayVideoIntent(mContext, videoID.get(getLayoutPosition())));
         }
     }
 }

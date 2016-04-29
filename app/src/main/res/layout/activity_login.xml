@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:theme="@style/AppTheme2"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
         android:id="@+id/login_container"
@@ -21,7 +22,7 @@
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="APP NAME"
+            android:text="NBA INFO"
             android:textSize="30dp"/>
 
         <ImageView
@@ -39,7 +40,10 @@
             android:layout_height="wrap_content"
             android:text="Create User"
             android:id="@+id/createuser"
+            android:theme="@style/MyButton2"
             />
+
+
 
         <Button
             android:layout_width="300dp"
@@ -48,6 +52,7 @@
             android:layout_centerHorizontal="true"
             android:text="Login"
             android:id="@+id/login"
+            android:theme="@style/MyButton2"
             />
 
     </RelativeLayout>

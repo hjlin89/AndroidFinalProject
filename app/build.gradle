@@ -50,5 +50,6 @@ dependencies {
     compile 'com.github.dmytrodanylyk.shadow-layout:library:1.0.3'
     compile 'com.jpardogo.listbuddies:library:1.1.1'
     compile 'com.eftimoff:android-viewpager-transformers:1.0.1@aar'
+    compile 'jp.wasabeef:recyclerview-animators:2.2.3'
 
 }

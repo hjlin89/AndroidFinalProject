@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 
 import com.firebase.client.Firebase;
@@ -18,6 +19,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.ScaleInRightAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 
 
 /**
@@ -66,7 +72,27 @@ public class PlayerListFragment extends Fragment {
         });
 
         recyclerview.setAdapter(mRecyclerViewAdapter);
+        adapterAnimation();
+        itemAnimation();
         return view;
+    }
+
+    private void itemAnimation() {
+        SlideInLeftAnimator animator = new SlideInLeftAnimator();
+        animator.setInterpolator(new OvershootInterpolator());
+
+        animator.setAddDuration(1500);
+        animator.setRemoveDuration(1500);
+
+        recyclerview.setItemAnimator(animator);
+    }
+
+    private void adapterAnimation() {
+        //SlideInBottomAnimationAdapter alphaAdapter = new SlideInBottomAnimationAdapter(mRecyclerViewAdapter);
+        AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(mRecyclerViewAdapter);
+        ScaleInAnimationAdapter scaleAdapter = new ScaleInAnimationAdapter(alphaAdapter);
+        scaleAdapter.setDuration(1500);
+        recyclerview.setAdapter(scaleAdapter);
     }
 
     @Override
